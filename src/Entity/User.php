@@ -96,16 +96,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getValidated(): bool
-    {
-        return $this->validated;
-    }
-
     public function setValidated(bool $validated): self
     {
         $this->validated = $validated;
 
         return $this;
+    }
+
+    public function isValidated(): bool
+    {
+        return $this->validated;
     }
 
     /**
