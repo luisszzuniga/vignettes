@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Entity(repositoryClass: PostRepository::class)]
+/**
+ * @ORM\Entity
+ * @Vich\Uploadable
+ */
 class Post
 {
     #[ORM\Id]
@@ -29,8 +34,17 @@ class Post
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
 
     public function getId(): ?int
     {
@@ -97,15 +111,32 @@ class Post
         return $this;
     }
 
-    public function getImage(): ?string
+    public function setImageFile(File $image = null): self
     {
-        return $this->image;
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        // if ($image) {
+        //     // if 'updatedAt' is not defined in your entity, use another property
+        //     $this->updatedAt = new \DateTime('now');
+        // }
+        return $this;
     }
 
-    public function setImage(string $image): self
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($image)
     {
         $this->image = $image;
+    }
 
-        return $this;
+    public function getImage()
+    {
+        return $this->image;
     }
 }
