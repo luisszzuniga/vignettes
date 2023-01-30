@@ -35,6 +35,8 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
 
+    access_denied_url: /not-allowed
+
     access_decision_manager:
         strategy: affirmative
 
