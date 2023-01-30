@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Vich\UploadableField;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
@@ -38,16 +39,11 @@ class Post
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
+    #[ORM\Column(length: 255, nullable: true)]
+
     private $image;
 
-    /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
-     * @var File
-     */
+    #[UploadableField(mapping:"product_images", fileNameProperty:"image")]
     private $imageFile;
 
     public function getId(): ?int
