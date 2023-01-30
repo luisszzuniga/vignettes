@@ -25,6 +25,9 @@ class Post
     #[ORM\Column]
     private ?int $category_id = null;
 
+    #[ORM\Column]
+    private ?int $grid_size_id = null;
+
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
