@@ -19,10 +19,6 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'app_dashboard')]
     public function index(): Response
     {
-        $user = $this->getUser();
-        if (!$user->getValidated()) {
-            throw new AccessDeniedException('Accès refusé. Ce compte n\'a pas été validé.');
-        }
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
         ]);
