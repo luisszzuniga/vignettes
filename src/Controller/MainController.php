@@ -17,4 +17,10 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+
+    #[Route('/not-allowed', name: 'app_not_allowed')]
+    public function notAllowed(): Response
+    {
+        return $this->render('main/not_allowed.html.twig');
+    }
 }
