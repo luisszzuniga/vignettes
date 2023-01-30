@@ -27,6 +27,8 @@ class AppFixtures extends Fixture
                 'password'
             )
         );
+        $user->setFirstName('Admin first name');
+        $user->setLastName('Admin last name');
         $user->setRoles([User::ROLE_ADMIN]);
         $user->setValidated(true);
 
