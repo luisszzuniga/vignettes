@@ -8,8 +8,9 @@ use App\Repository\PostRepository;
 use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
+#[ORM\Entity(repositoryClass: PostRepository::class)]
 /**
- * @ORM\Entity
  * @Vich\Uploadable
  */
 class Post
@@ -74,6 +75,18 @@ class Post
     public function setCategoryId(int $category_id): self
     {
         $this->category_id = $category_id;
+
+        return $this;
+    }
+
+    public function getGridSizeId(): string
+    {
+        return $this->grid_size_id;
+    }
+
+    public function setGridSizeId(int $id): self
+    {
+        $this->grid_size_id = $id;
 
         return $this;
     }
