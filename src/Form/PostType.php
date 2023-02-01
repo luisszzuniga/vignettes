@@ -25,29 +25,49 @@ class PostType extends AbstractType
                 'choice_label' => 'name',
                 'mapped' => false,
                 'label' => 'Catégorie',
+                'attr' => [
+                    'class' => 'form-control form-select'
+                ],
+                'data' => isset($options['category']) ? $options['category'] : null,
             ])
             ->add('name', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Nom',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Description'
+                'label' => 'Description',
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             ->add('imageFile', FileType::class, [
-                'label' => 'Image',
-            ])
-            ->add('file', FileType::class, [
-                'label' => 'Fichier supplémentaire',
-                'required' => false
+                'label' => $options['update'] ? 'Image (laisser vide pour ne pas la changer)' : 'Image',
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'required' => $options['update'] ? false : true
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Enregistrer'
+                'label' => 'Enregistrer',
+                'attr' => [
+                    'class' => 'mt-3 btn btn-success'
+                ]
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => Post::class,
-        ]);
+        $resolver
+            ->setDefaults([
+                'data_class' => Post::class,
+                'category' => null
+            ])
+            ->setRequired([
+                'category',
+                'update',
+            ]);
     }
 }

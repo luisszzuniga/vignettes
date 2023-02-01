@@ -1,0 +1,11 @@
+{% extends 'dashboard_base.html.twig' %}
+
+{% block title %}Hello DashboardController!
+{% endblock %}
+
+{% block body %}
+    <div class="container mx-auto">
+        <a href="/dashboard" class="btn btn-primary my-3">Retour</a>
+	    {{ form(form) }}
+    </div>
+{% endblock %}

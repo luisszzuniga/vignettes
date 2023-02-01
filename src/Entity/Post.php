@@ -7,12 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\JoinColumn;
-use Vich\UploaderBundle\Entity\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-#[Vich\Uploadable]
 class Post
 {
     #[ORM\Id]
@@ -39,12 +36,8 @@ class Post
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $file = null;
+    private $imageUrl;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private $image;
-
-    #[Vich\UploadableField(mapping: 'posts')]
     private $imageFile;
 
     public function getId(): ?int
@@ -52,7 +45,7 @@ class Post
         return $this->id;
     }
 
-    public function getUser(): ?int
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -100,29 +93,10 @@ class Post
         return $this;
     }
 
-    public function getFile(): ?string
+    public function setImageFile($file): self
     {
-        return $this->file;
-    }
+        $this->imageFile = $file;
 
-    public function setFile(?string $file): self
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    public function setImageFile(File $image = null): self
-    {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        // if ($image) {
-        //     // if 'updatedAt' is not defined in your entity, use another property
-        //     $this->updatedAt = new \DateTime('now');
-        // }
         return $this;
     }
 
@@ -131,13 +105,13 @@ class Post
         return $this->imageFile;
     }
 
-    public function setImage($image)
+    public function setImageUrl($imageUrl)
     {
-        $this->image = $image;
+        $this->imageUrl = $imageUrl;
     }
 
-    public function getImage()
+    public function getImageUrl()
     {
-        return $this->image;
+        return $this->imageUrl;
     }
 }

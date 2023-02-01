@@ -24,6 +24,10 @@
 			padding: 10px;
 			opacity: 0;
 			transition: 200ms ease;
+			width: 100%;
+		}
+		.text span {
+			font-weight: 700;
 		}
 		.img:hover .text {
 			opacity: 1;
@@ -42,8 +46,14 @@
 		<div class="row mx-auto mt-3">
 			{% for post in posts %}
 				<div class="img col-4">
-					<image style="width: 18rem" class="anime img-thumbnail rounded" src="{{ post.image }}" alt="{{ post.name }}">
-					<div class="text">{{ post.description }}</div>
+                    <a href="dashboard/edit/{{ post.id }}">
+                        <image style="width: 18rem;" class="anime img-thumbnail rounded" src="{{ post.imageUrl }}" alt="{{ post.name }}">
+                        <div class="text">
+							<span>{{ post.name }}</span>
+							<br>
+							{{ post.description }}
+						</div>
+                    </a>
 				</div>
 			{% endfor %}
 		</div>
@@ -60,12 +70,9 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="" method="POST">
-					<div class="modal-body">
-						{{ form(form) }}
-					</div>
-				</form>
-                
+                <div class="modal-body">
+                    {{ form(form) }}
+                </div>
 			</div>
 		</div>
 	</div>

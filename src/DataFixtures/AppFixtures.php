@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -31,8 +32,16 @@ class AppFixtures extends Fixture
         $user->setLastName('Admin last name');
         $user->setRoles([User::ROLE_ADMIN]);
         $user->setValidated(true);
-
         $manager->persist($user);
+
+        // Création des catégories
+        $category = new Category();
+        $category->setName('Dessin');
+        $manager->persist($category);
+
+        $category2 = new Category();
+        $category2->setName('Montage');
+        $manager->persist($category2);
 
         $manager->flush();
     }
