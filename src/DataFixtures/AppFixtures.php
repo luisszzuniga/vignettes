@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
-use App\Entity\GridSize;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -43,16 +42,6 @@ class AppFixtures extends Fixture
         $category2 = new Category();
         $category2->setName('Montage');
         $manager->persist($category2);
-
-        $gridSize = new GridSize();
-        $gridSize->setGridColumn('1');
-        $gridSize->setGridRow('2');
-        $manager->persist($gridSize);
-
-        $gridSize = new GridSize();
-        $gridSize->setGridColumn('2');
-        $gridSize->setGridRow('4');
-        $manager->persist($gridSize);
 
         $manager->flush();
     }

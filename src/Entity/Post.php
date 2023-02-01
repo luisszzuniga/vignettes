@@ -114,16 +114,4 @@ class Post
     {
         return $this->imageUrl;
     }
-
-    public function getGridSize(): GridSize
-    {
-        return $this->gridSize;
-    }
-
-    public function setGridSize(GridSize $gridSize): self
-    {
-        $this->gridSize = $gridSize;
-
-        return $this;
-    }
 }

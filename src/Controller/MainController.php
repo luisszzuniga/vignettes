@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,13 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'app_main')]
-    public function index(ManagerRegistry $doctrine, PostRepository $postRepository): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
-        $posts = $postRepository->findAll();
-
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'posts' => $posts
         ]);
     }
 
