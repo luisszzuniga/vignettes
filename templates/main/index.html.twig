@@ -4,13 +4,23 @@
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
 </style>
-
-<div class="example-wrapper">
+<div class="container mt-4">
 
     <h1>Page d'acceuil</h1>
 
+    <div class="grid">
+        {% for post in posts %}
+            <div style="grid-column: {{ post.gridSize.gridColumn }}; grid-row: {{ post.gridSize.gridRow }};">
+                <img src="{{ post.imageUrl }}" alt="">
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
