@@ -3,14 +3,51 @@
 {% block title %}Hello MainController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<style>
+		.anime {
+			transition: 200ms ease;
+		}
+		.anime:hover {
+			background-color: red;
+			opacity: 0.5;
+		}
+		.img {
+			position: relative;
+		}
+		.text {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.5);
+			color: white;
+			padding: 10px;
+			opacity: 0;
+			transition: 200ms ease;
+			width: 100%;
+		}
+		.text span {
+			font-weight: 7a00;
+		}
+		.img:hover .text {
+			opacity: 1;
+		}
+	</style>
 
-<div class="example-wrapper">
+<div class="container">
 
     <h1>Page d'acceuil</h1>
-
+ 
+    <div class="d-flex gap-3 mt-4">
+    {% for post in posts %}
+        <div class="img col-4">
+            <image style="width: 18rem;" class="anime img-thumbnail rounded" src="{{ post.imageUrl }}" alt="{{ post.name }}">
+            <div class="text">
+                <span>{{ post.name }}</span>
+                <br>
+                {{ post.description }}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
 </div>
 {% endblock %}

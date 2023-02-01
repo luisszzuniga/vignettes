@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ConfigRepository::class)]
 class Config
 {
+    public const STRING = 'string';
+    public const FILE = 'file';
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
