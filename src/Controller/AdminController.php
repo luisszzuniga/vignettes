@@ -38,4 +38,13 @@ class AdminController extends AbstractController
         $userRepository->save($id, true);
         return $this->redirectToRoute('app_admin_users');
     }
+    
+    #[Route('/admin/disabled_user/{id}', name: 'app_admin_disabled_users')]
+    public function disabledUser(UserRepository $userRepository, User $id) {
+        if($id->setValidated(true)) {
+            $id->setValidated(false);
+        }
+        $userRepository->save($id, true);
+        return $this->redirectToRoute('app_admin_users');
+    }
 }

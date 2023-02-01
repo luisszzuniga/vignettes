@@ -31,6 +31,13 @@ TODO: Faire un tableau avec les utilisateurs
             {% endif %}
           <td>
 
+          <td>{% if user.validated %}
+            <form action="/admin/disabled_user/{{ user.id }}" method="post">
+              <button type="submit">Désactiver</button>
+            </form>
+            {% endif %}
+          <td>
+
         </tr>
       {% endfor %}
     </tbody>
