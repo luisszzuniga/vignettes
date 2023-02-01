@@ -2,18 +2,17 @@
 
 namespace App\Entity;
 
-use Vich\UploadableField;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-/**
- * @Vich\Uploadable
- */
+#[Vich\Uploadable]
 class Post
 {
     #[ORM\Id]
@@ -21,14 +20,17 @@ class Post
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $user_id = null;
+    #[ManyToOne(targetEntity: User::class)]
+    #[JoinColumn(name: 'user_id', referencedColumnName: 'id')]
+    private User|null $user = null;
 
-    #[ORM\Column]
-    private ?int $category_id = null;
+    #[ManyToOne(targetEntity: Category::class)]
+    #[JoinColumn(name: 'category_id', referencedColumnName: 'id')]
+    private Category|null $category = null;
 
-    #[ORM\Column]
-    private ?int $grid_size_id = null;
+    #[ManyToOne(targetEntity: GridSize::class)]
+    #[JoinColumn(name: 'grid_size_id', referencedColumnName: 'id')]
+    private GridSize|null $gridSize = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -40,10 +42,9 @@ class Post
     private ?string $file = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-
     private $image;
 
-    #[UploadableField(mapping:"product_images", fileNameProperty:"image")]
+    #[Vich\UploadableField(mapping: 'posts')]
     private $imageFile;
 
     public function getId(): ?int
@@ -51,38 +52,14 @@ class Post
         return $this->id;
     }
 
-    public function getUserId(): ?int
+    public function getUser(): ?int
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUser(User $user): self
     {
-        $this->user_id = $user_id;
-
-        return $this;
-    }
-
-    public function getCategoryId(): ?int
-    {
-        return $this->category_id;
-    }
-
-    public function setCategoryId(int $category_id): self
-    {
-        $this->category_id = $category_id;
-
-        return $this;
-    }
-
-    public function getGridSizeId(): string
-    {
-        return $this->grid_size_id;
-    }
-
-    public function setGridSizeId(int $id): self
-    {
-        $this->grid_size_id = $id;
+        $this->user = $user;
 
         return $this;
     }
@@ -95,6 +72,18 @@ class Post
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

@@ -1,39 +1,72 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard_base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}Hello DashboardController!
+{% endblock %}
 
 {% block body %}
-{{ include('partials/_navbar.html.twig') }}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    .anime:hover { background-color: red; opacity: 0.5; }
-    .container {
-        position: relative;
-    }
-    .text {
-        position: absolute;
-        top: 80%;
-        left: 20%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        color: white;
-        padding: 10px;
-        visibility: hidden;
-    }
-    .container:hover .text {
-        visibility: visible;
-    }
-</style>
+	<style>
+		.anime {
+			transition: 200ms ease;
+		}
+		.anime:hover {
+			background-color: red;
+			opacity: 0.5;
+		}
+		.img {
+			position: relative;
+		}
+		.text {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.5);
+			color: white;
+			padding: 10px;
+			opacity: 0;
+			transition: 200ms ease;
+		}
+		.img:hover .text {
+			opacity: 1;
+		}
+	</style>
 
-<div class="example-wrapper">
+	<div class="container">
 
-    {% for post in posts %}
-    <div class="container">
-        <image style="width: 18rem" class="anime img-thumbnail rounded" src="{{ post.image }}" alt="{{ post.name }}">
-        <div class="text">{{ post.description }}</div>
-    </div>
-    {% endfor %}
-   
-</div>
+		<div class="d-flex justify-content-between align-items-center mt-5">
+			<h1 class="fs-3">Mes publications</h1>
+			<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal">
+				Ajouter
+			</button>
+		</div>
+
+		<div class="row mx-auto mt-3">
+			{% for post in posts %}
+				<div class="img col-4">
+					<image style="width: 18rem" class="anime img-thumbnail rounded" src="{{ post.image }}" alt="{{ post.name }}">
+					<div class="text">{{ post.description }}</div>
+				</div>
+			{% endfor %}
+		</div>
+
+	</div>
+
+	{# Add post modal #}
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Nouvelle création</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="" method="POST">
+					<div class="modal-body">
+						{{ form(form) }}
+					</div>
+				</form>
+                
+			</div>
+		</div>
+	</div>
 {% endblock %}
