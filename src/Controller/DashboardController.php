@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
+use App\Repository\GridSizeRepository;
 use Doctrine\ORM\EntityManager;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,7 +26,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class DashboardController extends AbstractController
 {
     #[Route('/dashboard', name: 'app_dashboard')]
-    public function index(PostRepository $r, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(PostRepository $r, Request $request, EntityManagerInterface $entityManager, GridSizeRepository $gsr): Response
     {
         $posts = $r->findBy([
             'user' => $this->getUser()
@@ -45,6 +46,12 @@ class DashboardController extends AbstractController
 
             $selectedCategory = $form->get('category')->getData();
             $newPost->setCategory($selectedCategory);
+
+            $defaultGridSize = $gsr->findOneBy([
+                'grid_column' => 1,
+                'grid_row' => 2
+            ]);
+            $newPost->setGridSize($defaultGridSize);
 
             $entityManager->persist($newPost);
             $entityManager->flush();

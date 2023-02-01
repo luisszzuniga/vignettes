@@ -7,4 +7,6 @@ Pour ajouter l'user Admin :
 email: admin@admin.com
 password: password
 
+Pour changer les grid_size il faut aller direct en base
+
 ATTENTION: ça efface toute la base de données
